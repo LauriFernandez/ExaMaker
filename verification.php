@@ -4,12 +4,19 @@
 </head>
 <body>
 
-<form>
-<input type="" name="modifier" value="Modifier un exercice ">
-<input type=""  value="Valider et sauvegarder">
+<form sauvegarde.php>
+<input type="" name="choix" value="Modifier un exercice ">
+<input type="" name="choix" value="Valider et sauvegarder">
 </form>
-  <?php
-  if($_GET['Modifier']
-  ?>
-</body>
+
+<?php
+if($_GET['choix']=='modifier')
+{
+
+};
+else {
+
+};
+
+?>
 </html>
