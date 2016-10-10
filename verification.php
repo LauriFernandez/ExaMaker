@@ -4,9 +4,10 @@
 </head>
 <body>
 
-<form sauvegarde.php>
-<input type="" name="choix" value="Modifier un exercice ">
-<input type="" name="choix" value="Valider et sauvegarder">
+<form> //permet au créateur de faire le choix entre modifier ou sauvegarder le sujet
+<input type="radio" name="choix" value="Modifier un exercice ">
+<input type="radio" name="choix" value="Sauvegarder">
+  <input type="submit" value="Valider mon choix">
 </form>
 
 <?php
