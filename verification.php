@@ -13,10 +13,12 @@
 <?php
 if($_GET['choix']=='modifier')
 {
-
+header(' Location : http://localhost/~11503023/php/exo1.php');
+exit();
 };
 else {
-
+header('Location: http://localhost/~11503023/projetS3/sauvegarde.php');
+exit();
 };
 
 ?>
