@@ -16,7 +16,7 @@
 	<div>
 	
 			
-		<a href="detailExo.php">Voir le contenu du sujet</a><br/>
+		<a href="detailSujet.php">Voir le contenu du sujet</a><br/>
 	
 		
 		<br/>
