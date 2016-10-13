@@ -16,11 +16,11 @@
 	<div>
 	
 			
-		<a href="detailSujet.php">Voir le contenu du sujet</a><br/>
+		<a href="detailExo.php">Voir le contenu du sujet</a><br/>
 	
 		
 		<br/>
-		<a href="intro.php"><button> creer un exercice </button></a> <tr/> <button>sauvegarder et valider le sujet</button> <tr/> <button>modifier un exercice</button>
+		<a href="intro.php"><button> creer un exercice </button></a> <tr/><a href="Question.php"><button> ajouter une question </button></a> <tr/> <button>sauvegarder et valider le sujet</button> <tr/> <button>modifier une question</button>
 	</div>
 
 
