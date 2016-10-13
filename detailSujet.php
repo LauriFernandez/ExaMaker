@@ -17,18 +17,19 @@
 	<div>
 	
 		<?php
-			echo $_SESSION['cptexo'];
+			echo $_SESSION['intro'].'<br/>';
+		
 			if(isset($_SESSION['ex'.$_SESSION['ind']]['bareme']) and isset($_SESSION['ex'.$_SESSION['ind']]['num']) and isset($_SESSION['ex'.$_SESSION['ind']]['question']) and isset($_SESSION['ex'.$_SESSION['ind']]['reponse']))
 			{
 				for($a=1;$a<=$_SESSION['cptexo'];$a++)
-					{
+					{						
+						echo '<strong>'."Exercice numero: ".$a.'('.$_SESSION['titreExo'][$a].')'.'</strong>'.'<br/><br/>';
 						
-						echo '<strong>'."Exercice numero: ".$a.'</strong>'.'<br/><br/>';
-						
-						for($b=1;$b<5;$b++)
+						for($b=1;$b<=$_SESSION['nbQuestion'][$a];$b++)
 						{
 							echo "Question numero: ".$_SESSION['ex'.$a]['num'][$b].'<br/>';	
-							echo "Question: ".$_SESSION['ex'.$a]['question'][$b].'<br/>';
+							echo "Question: ".$_SESSION['ex'.$a]['question'][$b].'<tr/>'.'<br/>';
+							echo "énoncé: ".$_SESSION['ex'.$a]['énoncé'][$b].'<br/>';
 							echo "Reponse: ".$_SESSION['ex'.$a]['reponse'][$b].'<br>';
 							echo "bareme: ".$_SESSION['ex'.$a]['bareme'][$b].'<br/><br/>';
 						}
