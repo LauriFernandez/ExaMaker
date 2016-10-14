@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,56 +6,37 @@
 	<title>Projet</title>
 </head>
 <body>
-<?php
-	$num_exo = [1,2];
-	$nb_question = [2,1];	
-	$num_question = [1,2,1];
-	$enonce = ["aaaa","yyyyyy","zzzz"];
-	$question = ["bbbb?","xxxx ?","ppppp"];
-	$reponse = ["ccccc","ddddd","mmmm"];
-	$bareme = [4,2];
-	
-	?>
 	<form method="get" action="sauvegarde.php">
    		<label>Chemin de destination</label> : <input type="text" name="cd" />
    		<input type="submit" value="Sauvegarder"/>
 	</form>
 	
 	<?php
-	$j = 0;
-	$tmp = 0;
 	if(isset($_GET['cd']) and trim($_GET['cd']) != '')
 		$fich = $_GET['cd'];
 	if(isset($_GET['cd']) and trim($_GET['cd']) != '')
 	{
-		$monfich = fopen($fich.'.exam', 'w+');
-		if($monfich == false)
-			echo "Erreur lors de la creation du fichier !";
+		$monfich = @fopen($fich.'.exam', 'w+');
+		if($monfich == true)
+		{
+		for($a=1;$a<=$_SESSION['cptexo'];$a++)
+					{						
+						fputs($monfich,"[NUM_EXO]".$a.'[TITRE_EXO]'.$_SESSION['titreExo'][$a]);
+						
+						for($b=1;$b<=$_SESSION['nbQuestion'][$a];$b++)
+						{
+							fputs($monfich,"[NUM_QUESTION]".$_SESSION['ex'.$a]['num'][$b]);	
+							fputs($monfich,"[QUESTION]".$_SESSION['ex'.$a]['question'][$b]);
+							fputs($monfich,"[ENONCE]".$_SESSION['ex'.$a]['énoncé'][$b]);
+							fputs($monfich,"[REPONSE]".$_SESSION['ex'.$a]['reponse'][$b]);
+							fputs($monfich,"[BAREME]".$_SESSION['ex'.$a]['bareme'][$b]);
+						}
+					}
+			fclose($monfich);
+		}
 		else
 		{
-		for($i=0; $i<count($num_exo); $i++)
-			{
-				fputs($monfich, 'NE');
-				fputs($monfich, $num_exo[$i]);
-				 while($j<$nb_question[$i])
-				{
-					fputs($monfich, 'NQU');
-					fputs($monfich, $num_question[$tmp]);
-					fputs($monfich, 'EN');
-					fputs($monfich, $enonce[$tmp]);
-					fputs($monfich, 'QU');
-					fputs($monfich, $question[$tmp]);
-					fputs($monfich, 'RE');
-					fputs($monfich, $reponse[$tmp]);
-					$j++;
-					$tmp++;
-				}
-				fputs($monfich, 'BA');
-				fputs($monfich, $bareme[$i]);
-				$tmp = $j;
-				$j = 0;
-			}
-			fclose($monfich);
+			echo "<p>Erreur lors de la creation du fichier : Chemin incorrect ou droits inexistants</p>";
 		}
 	}
 	?>
