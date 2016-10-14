@@ -18,10 +18,23 @@
 		
 		<?php
 			
-			echo "Voulez vous ajouter les elements suivants à l'exercice numero: ".$_SESSION['ind'].' ?'.'<br/>';
+			
 			
 			if(isset($_POST['num']) and isset($_POST['question']) and isset($_POST['reponse']) and isset($_POST['bareme']) and isset($_POST['énoncé']))
 			{	
+				$i=(int)$_POST['num'];
+				if($i==@$_SESSION['ex'.$_SESSION['ind']]['num'][$i])
+				{
+					echo "Vous avez deja traité cette question, vous pouvez le modifier dans l'onglet \"modifier\" de la page principale".'<br/>';
+					echo '<a href="index.html"><button>revenir à la page principale</button></a><br>';
+					echo '<a href="Question.php"><button>revoir la question</button></a><br>';
+					echo '<a href="Creation_sujet.php"><button>Revenir à la création du sujet</button></a><br>';
+			
+					exit();
+	
+				}
+				echo "Voulez vous ajouter les elements suivants à l'exercice numero: ".$_SESSION['ind'].' ?'.'<br/>';
+			
 				$_SESSION['nbQuestion'][$_SESSION['ind']]++;
 				
 				if(!isset($_SESSION['ex'.$_SESSION['ind']]['énoncé']) and !isset($_SESSION['ex'.$_SESSION['ind']]['bareme']) and !isset($_SESSION['ex'.$_SESSION['ind']]['num']) and !isset($_SESSION['ex'.$_SESSION['ind']]['question']) and !isset($_SESSION['ex'.$_SESSION['ind']]['reponse']))
@@ -34,7 +47,7 @@
 					$_SESSION['ex'.$_SESSION['ind']]['bareme']=array();					
 				}			
 				
-				$i=(int)$_POST['num'];
+				
 				
 				$_SESSION['ex'.$_SESSION['ind']]['num'][$i]=$_POST['num'];	
 				$_SESSION['ex'.$_SESSION['ind']]['question'][$i]=$_POST['question'];
