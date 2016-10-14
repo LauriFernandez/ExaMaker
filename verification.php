@@ -9,20 +9,20 @@
 
 <form > <!-- permet au créateur de faire le choix entre modifier ou sauvegarder le sujet-->
 
-<input type="submit" name="choix" value="m">
-<input type="submit" name="choix" value="S">
+<input type="submit" name="choix" value="Modifier">
+<input type="submit" name="choix" value="Sauvegarder">
 </form>
 <?php 
 if(isset($_GET['choix']))
 {
-if($_GET['choix']=='s')
+if($_GET['choix']=='Sauvegarder')
 {
-header(' Location : http://localhost/~11503023/php/exo1.php');
+header(' Location : http://sauvegarde.php');
 exit();
 }
 
 else{
-header('Location: http://localhost/~11503023/projetS3/sauvegarde.php');
+header('Location: http://modif.php');
 exit();
 }
 }
