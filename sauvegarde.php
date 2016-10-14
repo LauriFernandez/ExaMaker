@@ -3,40 +3,31 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Projet</title>
-
-	
-	
-	
-	
 </head>
 <body>
 <?php
-	$num_exo = [1];
-	$nb_questions = [1];
-	$num_question = [1];
-	$enonce = ["b,troibrjzirb,rom,bsflb,gfsingfilfnifnfhnsfiunbsuibnsuibuisjbi"];
-	$question = ["fqvhndhjbdqhqkdqvuyqdfvhdqyu ?"];
-	$reponse = ["jgjbbgjbjbfgjbjfbkfkf"];
-	$bareme = [2];
-	
-	
-	
-	
-	
+	$num_exo = [1,2];
+	$nb_question = [2,1];	
+	$num_question = [1,2,1];
+	$enonce = ["aaaa","yyyyyy","zzzz"];
+	$question = ["bbbb?","xxxx ?","ppppp"];
+	$reponse = ["ccccc","ddddd","mmmm"];
+	$bareme = [4,2];
 	
 	?>
-	<form method="get" action="test.php">
-   		<label>Chemin de destination</label> : <input type="text" name="cd" /></br>
-   		<label>Nom du fichier</label> : <input type="text" name="nom" /></br>
+	<form method="get" action="sauvegarde.php">
+   		<label>Chemin de destination</label> : <input type="text" name="cd" />
    		<input type="submit" value="Sauvegarder"/>
 	</form>
 	
 	<?php
-	if(isset($_GET['cd']) and trim($_GET['cd']) != '' and isset($_GET['nom']) and trim($_GET['nom']) != '')
-		$fich = $_GET['cd'].$_GET['nom'].'.exam';
-	if(isset($_GET['cd']) and trim($_GET['cd']) != '' and isset($_GET['nom']) and trim($_GET['nom']) != '')
+	$j = 0;
+	$tmp = 0;
+	if(isset($_GET['cd']) and trim($_GET['cd']) != '')
+		$fich = $_GET['cd'];
+	if(isset($_GET['cd']) and trim($_GET['cd']) != '')
 	{
-		$monfich = fopen($fich, 'x');
+		$monfich = fopen($fich.'.exam', 'w+');
 		if($monfich == false)
 			echo "Erreur lors de la creation du fichier !";
 		else
@@ -45,24 +36,27 @@
 			{
 				fputs($monfich, 'NE');
 				fputs($monfich, $num_exo[$i]);
-				for($j=0; $j<$nb_questions[$i]; $j++)
+				 while($j<$nb_question[$i])
 				{
 					fputs($monfich, 'NQU');
-					fputs($monfich, $num_question[$j]);
+					fputs($monfich, $num_question[$tmp]);
 					fputs($monfich, 'EN');
-					fputs($monfich, $enonce[$j]);
+					fputs($monfich, $enonce[$tmp]);
 					fputs($monfich, 'QU');
-					fputs($monfich, $question[$j]);
+					fputs($monfich, $question[$tmp]);
 					fputs($monfich, 'RE');
-					fputs($monfich, $reponse[$j]);
-					fputs($monfich, 'BA');
-					fputs($monfich, $bareme[$j]);
+					fputs($monfich, $reponse[$tmp]);
+					$j++;
+					$tmp++;
 				}
-				fclose($monfich);
+				fputs($monfich, 'BA');
+				fputs($monfich, $bareme[$i]);
+				$tmp = $j;
+				$j = 0;
 			}
+			fclose($monfich);
 		}
 	}
-	
 	?>
 	</body>
 </html>
