@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Projet</title>
+	<title>Sauvegarde</title>
 </head>
 <body>
 	<form method="get" action="sauvegarde.php">
@@ -17,7 +17,7 @@
 	if(isset($_GET['cd']) and trim($_GET['cd']) != '')
 	{
 		$monfich = @fopen($fich.'.exam', 'w+');
-		if($monfich == true)
+		if($monfich)
 		{
 		for($a=1;$a<=$_SESSION['cptexo'];$a++)
 					{						
@@ -32,7 +32,8 @@
 							fputs($monfich,"[BAREME]".$_SESSION['ex'.$a]['bareme'][$b]);
 						}
 					}
-			fclose($monfich);
+			if(fclose($monfich));
+			else echo "Erreur lors de la fermeture du fichier !";
 		}
 		else
 		{
