@@ -25,15 +25,15 @@
 				$i=(int)$_POST['num'];
 				if($i==@$_SESSION['ex'.$_SESSION['ind']]['num'][$i])
 				{
-					echo "Vous avez deja traité cette question, vous pouvez le modifier dans l'onglet \"modifier\" de la page principale".'<br/>';
-					echo '<a href="index.html"><button>revenir à la page principale</button></a><br>';
-					echo '<a href="Question.php"><button>revoir la question</button></a><br>';
-					echo '<a href="Creation_sujet.php"><button>Revenir à la création du sujet</button></a><br>';
+					echo '<p>'."Vous avez deja traité cette question, vous pouvez le modifier dans l'onglet \"modifier\" de la page principale".'</p><br/>';
+					echo '<p><a href="index.html"><button>revenir à la page principale</button></a></p><br>';
+					echo '<p><a href="Question.php"><button>revoir la question</button></a></p><br>';
+					echo '<p><a href="Creation_sujet.php"><button>Revenir à la création du sujet</button></a></p><br>';
 			
 					exit();
 	
 				}
-				echo "Voulez vous ajouter les elements suivants à l'exercice numero: ".$_SESSION['ind'].' ?'.'<br/>';
+				echo '<p>'."Voulez vous ajouter les elements suivants à l'exercice numero: ".$_SESSION['ind'].' ?'.'</p><br/>';
 			
 				$_SESSION['nbQuestion'][$_SESSION['ind']]++;
 				
@@ -55,11 +55,11 @@
 				$_SESSION['ex'.$_SESSION['ind']]['reponse'][$i]=$_POST['reponse'];
 				$_SESSION['ex'.$_SESSION['ind']]['bareme'][$i]=$_POST['bareme'];									
 					
-						echo "Question numero: ".$_SESSION['ex'.$_SESSION['ind']]['num'][$i].'<br/>';
-						echo "énoncé: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'<br/>';
-						echo "Question: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'<br/>';
-						echo "Reponse: ".$_SESSION['ex'.$_SESSION['ind']]['reponse'][$i].'<br/>';
-						echo "bareme: ".$_SESSION['ex'.$_SESSION['ind']]['bareme'][$i].'<br/><br/>';
+						echo '</p>'."Question numero: ".$_SESSION['ex'.$_SESSION['ind']]['num'][$i].'</p><br/>';
+						echo '</p>'."énoncé: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'</p><br/>';
+						echo '</p>'."Question: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'</p><br/>';
+						echo '</p>'."Reponse: ".$_SESSION['ex'.$_SESSION['ind']]['reponse'][$i].'</p><br/>';
+						echo '</p>'."bareme: ".$_SESSION['ex'.$_SESSION['ind']]['bareme'][$i].'</p><br/><br/>';
 					
 												
 			}

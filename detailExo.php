@@ -23,20 +23,20 @@
 			{
 				for($a=1;$a<=$_SESSION['cptexo'];$a++)
 					{						
-						echo '<strong>'."Exercice numero: ".$a.'('.$_SESSION['titreExo'][$a].')'.'</strong>'.'<br/><br/>';
+						echo '<p><strong>'."Exercice numero: ".$a.'('.$_SESSION['titreExo'][$a].')'.'</strong>'.'</p><br/><br/>';
 						
 						for($b=1;$b<=$_SESSION['nbQuestion'][$a];$b++)
 						{
-							echo "Question numero: ".@$_SESSION['ex'.$a]['num'][$b].'<br/>';	
-							echo "Question: ".@$_SESSION['ex'.$a]['question'][$b].'<tr/>'.'<br/>';
-							echo "énoncé: ".@$_SESSION['ex'.$a]['énoncé'][$b].'<br/>';
-							echo "Reponse: ".@$_SESSION['ex'.$a]['reponse'][$b].'<br>';
-							echo "bareme: ".@$_SESSION['ex'.$a]['bareme'][$b].'<br/><br/>';
+							echo '</p>'."Question numero: ".@$_SESSION['ex'.$a]['num'][$b].'</p><br/>';	
+							echo '</p>'."Question: ".@$_SESSION['ex'.$a]['question'][$b].'</p><br/>';
+							echo '</p>'."énoncé: ".@$_SESSION['ex'.$a]['énoncé'][$b].'</p><br/>';
+							echo '</p>'."Reponse: ".@$_SESSION['ex'.$a]['reponse'][$b].'</p><br>';
+							echo '</p>'."bareme: ".@$_SESSION['ex'.$a]['bareme'][$b].'</p><br/><br/>';
 						}
 					}	
 			}
 			else
-				echo "Aucun exercice";					
+				echo '<p>'."Aucun exercice".'</p></br>';					
 			
 		?>	
 		

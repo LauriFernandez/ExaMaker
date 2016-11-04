@@ -60,8 +60,8 @@
 		
 			if(!empty($_SESSION['numexo'][$i]) or $_SESSION['numexo'][$i]!=0)
 			{
-				echo 'Exercice numero '.$_SESSION['numexo'][$i].' séléctionné'.'<br/><br/>';
-				echo '<a href="Creation_sujet.php">'.' Vous pouvez creer les questions en cliquant sur ce lien'.'</a><br/>';						
+				echo '<p>Exercice numero '.$_SESSION['numexo'][$i].' séléctionné'.'</p><br/><br/>';
+				echo '<p><a href="Creation_sujet.php">'.' Vous pouvez creer les questions en cliquant sur ce lien'.'</a></p><br/>';						
 			}
 
 			if($i>$_SESSION['cptexo'] and !isset($_SESSION['ex'.$i]))
