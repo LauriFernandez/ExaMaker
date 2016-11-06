@@ -19,7 +19,7 @@
 	{
 		$monfich = @fopen($fich.'.exam', 'w+');
 		if($monfich)
-		{	
+		{	if(isset($_SESSION['cptexo']))
 			for($a=1;$a<=$_SESSION['cptexo'];$a++)
 			{						
 				fputs($monfich,"[NUM_EXO]".$a.'[TITRE_EXO]'.$_SESSION['titreExo'][$a]);
@@ -33,11 +33,11 @@
 						fputs($monfich,"[ENONCE]".$_SESSION['ex'.$a]['énoncé'][$b]);
 						fputs($monfich,"[REPONSE]".$_SESSION['ex'.$a]['reponse'][$b]);
 						fputs($monfich,"[BAREME]".$_SESSION['ex'.$a]['bareme'][$b]);
-						fputs($monfich,"¿"); // marqueur fin de bloc question
+						if($b < $_SESSION['nbQuestion'][$a]) fputs($monfich,"#"); // marqueur fin de bloc question
 					}	
 				}	
 			}
-			fputs($monfich,"¶"); // marqueur de fin
+			fputs($monfich,"~"); // marqueur de fin
 			if(fclose($monfich));
 			else echo "Erreur lors de la fermeture du fichier !";
 		}

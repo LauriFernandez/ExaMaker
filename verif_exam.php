@@ -15,12 +15,16 @@ function verif_tab($t)
 	else return false;
 }
 
-
 function test_exam()
 {
+	global $tab_test;
+	global $tab_verif;
 	$balise = 0;
-	$chaine = "";
-	$fich = @fopen($_FILES['fichier']['name'], 'r');
+	$i = 0;
+	$j = 0;
+	$k = 0;
+	$chaine;
+	$fich = fopen($_FILES['fichier']['name'], 'r');
 	if($fich)
 	{
 		$ct = array();
@@ -28,63 +32,69 @@ function test_exam()
 		{
 			$ct[] = $char; // recupere tout le fichier et le met dans un tableau
 		}
-		print_r($ct);
+		//print_r($ct);
+		//echo "A".$a;
 		
 			// test de tout un exo :
 			do
 			{
-				for($i=0; $ct[$i]!=']'; $i++);
-				implode($chaine,array_slice($ct,0,$i));
-				while($chaine !== $tab_test[2])
-				{
-					if($chaine === $tab_test[$balise]) $tab_verif[0] = 0;
-					else $tab_verif[0] = 1; //changer balise pour pas qu'elles puissent etrent presentes dans l'enoncé
+				for($i; $ct[$i]!=']'; $i++);
+				$i++;
+				$chaine = implode(array_slice($ct,$j,$i-$j));
+				//echo $chaine;
 
-					for($i; $ct[$i] != '['; $i++); // Avancer jusqu'a la prochaine balise
-					if($ct[$i] === '¿') $balise = 2;
-									
-					$balise++;
-					$j = $i;
-					for($i; $ct[$i]!=']'; $i++) // prochaine balise a tester
-					implode($chaine,array_slice($ct,$j,$i-$j));
-				}
-				// pas sur que cette boucle serve
-				/*
-				do
+				if(isset($tab_test[$balise]))
 				{
-					for($i; $ct[$i] != '['; $i++) // Avancer jusqu'a la prochaine balise
-					$balise++;
-					for($i; $ct[$i]!=']'; $i++) $chaine[] = $ct[$i]; // prochaine balise a tester
-
+					if($chaine == $tab_test[$balise]) $tab_verif[$k] = 0;
+					else $tab_verif[$k] = 1;
 				}
-				while($chaine !== '¿'); // tant qu on tombe pas sur marqueur fin questions 
-				*/
+				
+				if($balise < 6) $balise++;
+				else $balise = 0;
+							
+				for($i; $ct[$i]!='[' and $ct[$i] != '~'; $i++) // Avancer jusqu'a la prochaine balise
+				{
+					//echo $ct[$i];
+					if(isset($ct[$i]))
+						if($ct[$i] == '#') $balise = 2;
+				}
+				
+				$j = $i;
+				$k++;
+				//echo "I".$i; 
 			}
-			while($ct[$i] != '¶'); //Marqueur fin exo, a mettre dans fichier exa(script)
+			while($i < count($ct)-3);
+			
+			if(fclose($fich));
+			else echo "Erreur lors de la fermeture du fichier !"; //apres balise bareme mettre a 0
 			
 			if(verif_tab($tab_verif)) return true;
 			else return false;
+			//print_r($tab_verif);
 	}
 	else
 	{
 		echo "<p>Erreur lors de la lecture du fichier : Chemin incorrect ou droits inexistants</p>";
 	}
-
 }
 
 if ($_FILES['fichier']['error'] == 0) 
 {
 	if (in_array($extensions_up,$extensions_val)) // teste si extension valide
-	{
-			if(test_exam()) echo "Upload reussie"; // teste si l'interieur du .exam est correct
-			else echo "Le contenue du fichier ne corresspond pas";
+	{	
+			if(test_exam())
+			{
+				//print_r($tab_verif);
+				echo "Upload reussie"; // teste si l'interieur du .exam est correct
+			}
+			else 
+			{
+				echo "Le contenut du fichier ne correspond pas";
+				//print_r($tab_verif);
+			}
 	
 	}
 	else echo 'Extension incorrecte';
 }
-else echo 'Erreur lors du transfert';
-
-
-     
+else echo 'Erreur lors du transfert';  
 ?>
-
