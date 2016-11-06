@@ -1,30 +1,40 @@
+<!doctype html>
 <html>
-<head>  
-<title> <?php echo 'Premiers pas en PHP'; ?> </title>
-  <meta charset="utf-8"/>
+<head>
+	<link rel="stylesheet" href="cree2.css" />
+	<title> Examaker </title>
+	<meta charset="utfT-8"/>
 </head>
-
-<body>
-
-
-<form > <!-- permet au créateur de faire le choix entre modifier ou sauvegarder le sujet-->
-
-<input type="submit" name="choix" value="Modifier">
-<input type="submit" name="choix" value="Sauvegarder">
-</form>
-<?php 
-if(isset($_GET['choix']))
-{
-if($_GET['choix']=='Sauvegarder')
-{
-header(' Location : http://sauvegarde.php');
-exit();
-}
-
-else{
-header('Location: http://modif.php');
-exit();
-}
-}
-?>
+  
+	<header>
+		<h1>Verification > Examen</h1>
+	</header>
+    
+  <body>
+      <div id="Examen">
+      <div class="Barre">
+						<h3>E1</h3>
+							<p>Examen </p>
+						<div id="SVG">
+						<a href="" class="svg"><object type="image/svg+xml" data="list.svg" width="36" ></object></a>
+						<a href="" class="svg"><object type="image/svg+xml" data="cancel.svg" width="36" ></object></a>
+						</div>
+							</div>				
+				<div class="Question">
+						
+						<div class="Ennonce">
+						<--- affichage de l examen créer --->
+						</div>
+					</div>
+				
+				
+				<div id="Button">
+				<a href="sauvegarde.php" style="background-color: #3bb39d">Valider</a>
+				<a href="modif.php" style="background-color: #e2574c">Modifier</a>
+					</div>
+  </div>
+  </body>
+	  
+	  <footer>
+	  </footer>
 </html>
