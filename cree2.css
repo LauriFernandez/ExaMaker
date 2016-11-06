@@ -1,0 +1,132 @@
+
+@font-face {
+font-family: 'AlegreyaSans-Light';
+src: url('AlegreyaSans-Light.otf') format('opentype');
+}
+
+
+header {
+  background-color:  #2c3e50;
+  height: 200px;
+}
+
+header {
+  background-color:  white;
+  height: 75px;
+	border-bottom: 1px solid #2c3e50;
+	font-family: "AlegreyaSans-Light", sans-serif;
+}
+
+header h1 {
+	font-size: 25px;
+	text-align: left;
+		margin-left: auto;
+		margin-right: auto;
+		width: 500px;
+		padding-top: 20px;
+	font-style: normal;
+	margin-top: 0;
+	color: darkgrey;
+}
+
+body {
+		background-color: #ededed;
+		margin: 0px;
+		font-family: "AlegreyaSans-Light", sans-serif;
+}
+
+#Examen {
+		margin-top: 35px;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
+}
+
+div h2 {
+		font-size: 20px;
+		color: cornflowerblue;
+		width: 230px;
+}
+
+.Barre {
+		padding: 0px;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #4d4c50;
+		display: flex;
+}
+
+.Barre p {
+		font-size: 15px;
+		padding-left: 5px;
+	color: #b8b8b8;
+}
+
+.Question .Ennonce {
+	background-color: white;
+	width: 500px;
+}
+
+.Ennonce p {
+	margin-top: 0;
+	padding-top: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 20px;
+}
+
+.Barre h1 {
+		font-size: 15px;
+}
+
+.Barre h3 {
+		font-size: 15px;
+		background-color: #38373a;
+		margin: 0;
+padding-top: 7px;
+	width: 60px;
+	font-size: 30px;
+	text-align: center;
+	color: #b8b8b8;
+	border-right: 1px solid grey;
+	margin-right: 15px;
+}
+
+#SVG {
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: 5px;
+}
+
+a.svg {
+ position: relative;
+ display: inline-block; 
+}
+
+a.svg:after {
+  content: ""; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:0;
+}
+
+#Button a {
+	font-size: 15px;
+	color: white;
+	padding: 10px;
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 10px;
+	margin-right: 15px;
+	text-decoration: none;
+}
+
+#Button {
+	margin-top: 55px;
+	margin-right: 5px;
+	margin-left: auto;
+	width: 200px;
+}
