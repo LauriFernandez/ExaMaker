@@ -21,62 +21,70 @@
  * 
  * 
  */
+require 'includes.php';
+//print_r($_POST);
+$params=array_flip($_POST);
+if(isset($params['Valider'])){
+	$params['Modifier'] = $params['Valider'];
+unset($params['Valider']);
+	}
 
+
+
+
+$exos = $bdd->query('SELECT Nom FROM exercices WHERE ID='.$params['Modifier']);
+$exoQuestions= $bdd->query('SELECT ID,Question,Points FROM questions WHERE ExerciceID='.$params['Modifier'].';');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
 	<link rel="icon" href="images/exaMaker.png">
+	<link rel="stylesheet" href="Style.css" />
 	<title>ExaMaker - Modification</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head>
 
 <body>
 	<h1>
-    Modification de l'exercice 
-    <?php 
-    if(isset($_POST['1']))
-		echo '1';
-	elseif(isset($_POST['2']))
-		echo '2';
-	elseif(isset($_POST['3']))
-		echo '3';
-	elseif(isset($_POST['4']))
-		echo '4';
-    ?><br/><br/>
+    Modification de l'exercice : <?php while($nom = $exos->fetch()){echo $nom['Nom'];} ?> 
+    <br/><br/>
     <h2>Question(s) :</h2>
     
-    
-	<p><strong>- Question 1 :</strong><br>
-	De milites per sunt quaedam omnes civitatibus incertus Constantius mortalem ac milites sunt nequo conducentia ?<br></p>
-	<p><strong>Reponse 1 :</strong><br>
-	Deterritum doctrinis aut ita equidem appellantur quas video deterruisset videri quamquam satis quamquam satis deterruisset.
-	</p>
-	<form action='modifQues.php' method='post'>
-	<input type="submit" name='1' value="Modifier">
-	<input type="submit" name='1' value="Supprimer">
+   <?php
+/*if(isset($_POST['modifQues'])){
+		$questMod = htmlspecialchars($_POST['modifQues']);
+		$sql = 'UPDATE questions SET Question = "'.$questMod.'" WHERE ID = '.$params['Modifier'].' ;';
+		$modif=$bdd->exec($sql);
+		//header("location : http://localhost/examaker/modifExo.php");
+		
+		
+		
+		}*/
+
+for($n=1;$question = $exoQuestions->fetch();$n++){
+	echo '<p><strong>- Question '.$n.': </strong><br><br>'
+	.$question['Question'].' </p>
+	<form action=\'modifQues.php\' method=\'post\'>
+	<input style="background-color: #3bb39d" type="submit" name=\''.$question['ID'].'\' value="Modifier">
 	</form>
-	
-	
-	<p><strong>- Question 2 :</strong><br>
-	Si intepesceret magna inter res promittentes e res Eusebium quaestor et nec Epigonus Eusebium armorum ?<br>
-	<p><strong>Reponse 2 :</strong><br>
-	Properantes enim sine velut subversasque post transiturus per calceis globos familiarium spatia latera publicos praedatorios.
-	</p> 
-	<form action='modifQues.php' method='post'>
-	<input type="submit" name='2' value="Modifier">
-	<input type="submit" name='2' value="Supprimer">
+	<form action=\'validerQues.php\' method=\'post\'>
+	<br><input style="background-color: #e2574c" type="submit" name=\''.$question['ID'].'\' value="Supprimer">
 	</form>
+	';
+	
+	}
+	echo '<form action=\'modifQues.php\' method=\'post\'>
+	<br><br><input style="color: #3bb39d" type="submit" name=\''.$params['Modifier'].'\' value="Ajouter"><br><br>
+	</form>';
+?> 
 	
 	
 	
-	<form action='modifQues.php' method='post'>
-	<br><br><input type="submit" name='+' value="Ajouter"><br><br>
-	</form>
-	<a href='http://localhost/examaker/modifExa.php'><input type='button' value='Retour'></a>
-	<?php //print_r($_POST); ?>
+	
+	
+	<a href='http://localhost/examaker/modifExa.php'><input style="color: #e2574c" type='button' value='Retour'></a>
 </body>
 
 </html>

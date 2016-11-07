@@ -21,46 +21,47 @@
  * 
  * 
  */
+require 'includes.php';
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
 	<link rel="icon" href="images/exaMaker.png">
+	<link rel="stylesheet" href="Style.css" />
 	<title>ExaMaker - Modification</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<h1>
+    Modification d'un Examen
+    </h1>
+    <br/><br/>
 </head>
 
 <body>
-	<h1>
-    Modification d'un Examen<br/><br/>
+	
     <h2>Exercice(s) :</h2>
-    
-	<p>- Exercice 1 : Thème A (barème)</p>
-	<form action='modifExo.php' method='post'>
-	<input type="submit" name='1' value="Modifier">
-	<input type="submit" name='1' value="Supprimer">
+    <div id="Examen">
+<?php
+
+$exams = $bdd->query('SELECT ID,Nom,Points FROM exercices');
+
+for($n=1;$exos = $exams->fetch();$n++){
+	echo '<div id="Exercice"> <p>- Exercice '.$n.': '.$exos['Nom'].' ('.$exos['Points'].' points)</p>
+	<form action=\'modifExo.php\' method=\'post\'>
+	<div id="Button">
+	<input style="background-color: #3bb39d" type="submit" name=\''.$exos['ID'].'\' value="Modifier">
+	<input style="background-color: #e2574c" type="submit" name=\''.$exos['ID'].'\' value="Supprimer">
+	</div>
 	</form>
+	</div>';
+	}
+?>
 	
-	<p>- Exercice 2 : Thème B (barème)</p>
-	<form action='modifExo.php' method='post'>
-	<input type="submit" name='2' value="Modifier">
-	<input type="submit" name='2' value="Supprimer">
-	</form>
 	
-	<p>- Exercice 3 : Thème C (barème)</p>
-	<form action='modifExo.php' method='post'>
-	<input type="submit" name='3' value="Modifier">
-	<input type="submit" name='3' value="Supprimer">
 	</form>
-	
-	<p>- Exercice 4 : Thème D (barème)</p>
-	<form action='modifExo.php' method='post'>
-	<input type="submit" name='4' value="Modifier">
-	<input type="submit" name='4' value="Supprimer">
-	</form>
+	</div>
 </body>
 
 </html>

@@ -21,7 +21,14 @@
  * 
  * 
  */
+ require 'includes.php';
+//print_r($_POST);
+$params=array_flip($_POST);
+//print_r($params);
 
+if(isset($params['Modifier'])){
+	$exoQuestions= $bdd->query('SELECT Question,Points,ID FROM questions WHERE ID='.$params['Modifier'].';');
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -29,48 +36,47 @@
 
 <head>
 	<link rel="icon" href="images/exaMaker.png">
+	<link rel="stylesheet" href="Style.css" />
 	<title>ExaMaker - Modification</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head>
 
 <body>
 	<?php 
-    if(isset($_POST['1'])) // problème avec la condition $_POST['1'] == 'Modifier'
-    echo "<h1> Modification de la question 2</h1>
-    <p>Question :<p>
-	<textarea name='modifQues1' rows='8' cols='45'>
-De milites per sunt quaedam omnes civitatibus incertus Constantius mortalem ac milites sunt nequo conducentia ?
-	</textarea>
+	if(isset($params['Modifier'])){
 	
-	<p>Réponse :</p>
-	<textarea name='modifRep1' rows='8' cols='45'>
-Deterritum doctrinis aut ita equidem appellantur quas video deterruisset videri quamquam satis quamquam satis deterruisset.
-	</textarea>";
 	
-    elseif(isset($_POST['2'])){
-    echo "<h1> Modification de la question 2</h1>
-    <p>Question :<p>
-	<textarea name='modifQues2' rows='8' cols='45'>
-Si intepesceret magna inter res promittentes e res Eusebium quaestor et nec Epigonus Eusebium armorum ?
-	</textarea>
-	
-	<p>Réponse :</p>
-	<textarea name='modifRep2' rows='8' cols='45'>
-Properantes enim sine velut subversasque post transiturus per calceis globos familiarium spatia latera publicos praedatorios.
-	</textarea>";
-	} 
-	elseif(isset($_POST['+'])){
+	for($n=1;$question = $exoQuestions->fetch();$n++){
+	echo '<h1> Modification de la question</h1><br>
+	<p><strong>Question :</strong><br>
+	<form action=\'validerQues.php\' method=\'post\'>
+	<br><textarea name=\'modifQues\' rows=\'16\' cols=\'80\'>'
+	.$question['Question'].
+	'</textarea>
+	<br><br>'."<input style='background-color: #3bb39d' type='submit' name='".$question['ID']."' value='Valider'><br><br>
+	</form>";
+	 
+	}
+}
+
+
+
+
+		
+	if(isset($params['Ajouter'])){
 		echo "<h1> Ajouter une question</h1>
     <p>Question :<p>
-	<textarea name='modifQues1' rows='8' cols='45'></textarea>
+    <form action='validerQues.php' method='post'>
+	<textarea name='quesAjouter' rows='16' cols='80'></textarea>
+	<br><p>Barème : </p><input id='bareme'  type='text' name='Points'><br><br><input style='background-color: #3bb39d' type='submit' name='".$params['Ajouter']."' value='Valider'>
 	
-	<p>Réponse :</p>
-	<textarea name='modifRep1' rows='8' cols='45'></textarea>";
+	</form>";
 		} 
+	
 	?>
-	<form action='modifExo.php' method='post'>
-	<br><input type='submit' name='modif' value='Valider'>
-	<a href='http://localhost/examaker/modifExo.php'><input type='button' value='Annuler'></a>
+	<form action='modifQues.php' method='post'>
+		<br>
+	<a href='http://localhost/examaker/modifExa.php'><input style="background-color: #e2574c" type='button' value='Annuler'></a>
 	</form>
 </body>
 
