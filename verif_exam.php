@@ -23,8 +23,9 @@ function test_exam()
 	$i = 0;
 	$j = 0;
 	$k = 0;
+	$count_fin = 0; // compte le nombre de marqeur de fin (qui ne dervait pas exceder 1)
 	$chaine;
-	$fich = fopen($_FILES['fichier']['name'], 'r');
+	$fich = @fopen($_FILES['fichier']['name'], 'r');
 	if($fich)
 	{
 		$ct = array();
@@ -33,7 +34,7 @@ function test_exam()
 			$ct[] = $char; // recupere tout le fichier et le met dans un tableau
 		}
 		//print_r($ct);
-		//echo "A".$a;
+		//echo count($ct);
 		
 			// test de tout un exo :
 			do
@@ -41,7 +42,7 @@ function test_exam()
 				for($i; $ct[$i]!=']'; $i++);
 				$i++;
 				$chaine = implode(array_slice($ct,$j,$i-$j));
-				//echo $chaine;
+				echo $chaine;
 
 				if(isset($tab_test[$balise]))
 				{
@@ -52,18 +53,23 @@ function test_exam()
 				if($balise < 6) $balise++;
 				else $balise = 0;
 							
-				for($i; $ct[$i]!='[' and $ct[$i] != '~'; $i++) // Avancer jusqu'a la prochaine balise
+				for($i; $ct[$i]!='[' /*and $ct[$i] != '~'*/; $i++) // Avancer jusqu'a la prochaine balise
 				{
 					//echo $ct[$i];
 					if(isset($ct[$i]))
+					{
 						if($ct[$i] == '#') $balise = 2;
+						if($ct[$i+1] == '~') $count_fin++;
+						//echo $count_fin;
+					}
+					
 				}
 				
 				$j = $i;
 				$k++;
 				//echo "I".$i; 
 			}
-			while($i < count($ct)-3);
+			while($ct[$i+1] != '~');
 			
 			if(fclose($fich));
 			else echo "Erreur lors de la fermeture du fichier !"; //apres balise bareme mettre a 0
@@ -82,15 +88,17 @@ if ($_FILES['fichier']['error'] == 0)
 {
 	if (in_array($extensions_up,$extensions_val)) // teste si extension valide
 	{	
+		
 			if(test_exam())
 			{
-				//print_r($tab_verif);
+				//echo "aa";
+				print_r($tab_verif);
 				echo "Upload reussie"; // teste si l'interieur du .exam est correct
 			}
 			else 
 			{
 				echo "Le contenut du fichier ne correspond pas";
-				//print_r($tab_verif);
+				print_r($tab_verif);
 			}
 	
 	}
