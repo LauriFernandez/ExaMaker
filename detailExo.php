@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="cree.css"/>
 	<title>Détail</title>
 </head>
 
@@ -17,22 +18,26 @@
 	<div>
 	
 		<?php
-			echo $_SESSION['intro'].'<br/>';
+			echo @$_SESSION['intro'].'<br/>';
 		
-			if(isset($_SESSION['ex'.$_SESSION['ind']]['bareme']) and isset($_SESSION['ex'.$_SESSION['ind']]['num']) and isset($_SESSION['ex'.$_SESSION['ind']]['question']) and isset($_SESSION['ex'.$_SESSION['ind']]['reponse']))
+			if(@isset($_SESSION['numexo']) and isset($_SESSION['titreExo']) and isset($_SESSION['nbQuestion']))
 			{
 				for($a=1;$a<=$_SESSION['cptexo'];$a++)
-					{						
-						echo '<p><strong>'."Exercice numero: ".$a.'('.$_SESSION['titreExo'][$a].')'.'</strong>'.'</p><br/><br/>';
+					{				
+						
+						echo '<p><strong>'."Exercice numero: ".$a.'</p><br/><br/>';
+						echo '<p><strong>'."Titre exercice: ".$_SESSION['titreExo'][$a].'</strong>'.'</p><br/><br/>';
 						
 						for($b=1;$b<=$_SESSION['nbQuestion'][$a];$b++)
 						{
-							echo '</p>'."Question numero: ".@$_SESSION['ex'.$a]['num'][$b].'</p><br/>';	
-							echo '</p>'."Question: ".@$_SESSION['ex'.$a]['question'][$b].'</p><br/>';
-							echo '</p>'."énoncé: ".@$_SESSION['ex'.$a]['énoncé'][$b].'</p><br/>';
-							echo '</p>'."Reponse: ".@$_SESSION['ex'.$a]['reponse'][$b].'</p><br>';
-							echo '</p>'."bareme: ".@$_SESSION['ex'.$a]['bareme'][$b].'</p><br/><br/>';
-						}
+							
+							echo "<p>Question numero: ".@$_SESSION['ex'.$a]['num'][$b].'</p><br/>';								
+							echo "<p>Question: ".@$_SESSION['ex'.$a]['question'][$b].'</p><br/>';
+							echo "<p>Enoncé: ".@$_SESSION['ex'.$a]['énoncé'][$b].'</p><br/>';
+							echo "<p>bareme: ".@$_SESSION['ex'.$a]['bareme'][$b].'</p><br/><br/>';
+							
+						}					
+					
 					}	
 			}
 			else
@@ -40,7 +45,6 @@
 			
 		?>	
 		
-		<a href="Creation_sujet.php"><button> retour au sujet </button></a>
 		
 	</div>
 

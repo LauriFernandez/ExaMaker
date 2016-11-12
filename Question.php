@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="cree.css" />
 	<title>Création des questions</title>
 </head>
 
@@ -13,16 +14,18 @@
 
 <br/><br/>	
 	
-	<div>
-	
+	<div id="ajQ">
+	<div class="Barre">
 	<form method="post" action="Creation_exo.php">
-		<p> Numero de la question: <input type="text" name="num"/> </p>
-		<p> Enoncé: <textarea col="10" row="10" name="énoncé"></textarea> </p>
-		<p> Question: <input type="text" name="question"/> </p>	
-		<p> Reponse: <textarea col="10" row="10" name="reponse"></textarea> </p>
-		<p> Bareme: <input name="bareme"/></p>
+		<p class="info"> Numero de la question:</p> <p class="rep"> <input type="text" name="num"/> </p>
+		<br/><br/>
+		<p class="info"> Enoncé: </p> <p class="rep"><textarea col="300" row="300" name="énoncé"></textarea> </p>
+		<br/><br/>
+		<p class="info"> Question: </p> <p class="rep"> <textarea col="300" row="300" name="question"></textarea> </p>
+		<br/><br/>
+		<p class="info"> Bareme: </p> <p class="rep"> <input name="bareme"/></p>
 		
-		<input type="submit" value="valider la question"/>
+		<input class="validation" type="submit" value="Valider"/>
 	</form>
 	
 	</div>

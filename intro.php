@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="cree.css" />
 	<title>Numero de l'exercice</title>
 </head>
 
@@ -13,23 +14,36 @@
 
 <br/><br/>	
 	
-	<div>
-	
+	<div id="ajQ">
 	<form method="post" action="intro.php">
-		<p> Numero de l'exercice: <input type="text" name="numexo"/></p>
-		<p> Titre de l'exercice: <input type="text" name="titreExo"/></p>
-		<p> Introduction du sujet (modifier si nécessaire) <textarea name="intro" row=100 col=100></textarea></p>
-		<input type="submit" value="valider la question"/>
+		<div class="Barre">
+		<p class="info"> Numero de l'exercice:</p> <p class="rep"> <input type="text" name="numexo"/></p>
+		<br/><br/><br/>
+		<p class="info"> Titre de l'exercice:</p> <p class="rep"> <input type="text" name="titreExo"/></p>
+		<br/><br/><br/>
+		<p class="info"> Introduction du sujet (modifier si nécessaire) </p> <p class="rep"> <textarea name="intro" row=100 col=100></textarea></p>
+		</div>
+		<input class="validation" type="submit" value="Valider"/>
 	</form>
 	
-	<?php 
+	<?php
+	
+		if(isset($_GET['re']) and @$_GET['re']==true)
+		{
+			$_GET['re']=false;
+			session_destroy();
+			echo '<br/><a href="Creation_sujet.php" class="notif">'.' Vous avez decidé de commencer un nouveau sujet'.'</p><br/>';
+		}
+		
+		
+	
 		if(isset($_POST['numexo']))
 		{
 			if(!isset($_SESSION['cptexo']))	
 					$_SESSION['cptexo']=0;
 				
 			
-			if(!isset($_SESSION['num']) and !isset($_SESSION['titreExo']) and !isset($_SESSION['nbQuestion']))		
+			if(!isset($_SESSION['numexo']) and !isset($_SESSION['titreExo']) and !isset($_SESSION['nbQuestion']))		
 			{
 				$_SESSION['numexo']=array();
 				$_SESSION['titreExo']=array();
@@ -55,23 +69,25 @@
 			if(empty($_SESSION['nbQuestion'][$_POST['numexo']]) )
 				$_SESSION['nbQuestion'][$_POST['numexo']]=0;
 			
-			
+		
 		
 		
 			if(!empty($_SESSION['numexo'][$i]) or $_SESSION['numexo'][$i]!=0)
 			{
+				echo '<div class="notif">';
 				echo '<p>Exercice numero '.$_SESSION['numexo'][$i].' séléctionné'.'</p><br/><br/>';
-				echo '<p><a href="Creation_sujet.php">'.' Vous pouvez creer les questions en cliquant sur ce lien'.'</a></p><br/>';						
+				echo '<a href="Question.php" class="notif">'.' Vous pouvez creer les questions en cliquant sur ce message'.'</p><br/>';
+				echo '</div>';
 			}
 
 			if($i>$_SESSION['cptexo'] and !isset($_SESSION['ex'.$i]))
 				$_SESSION['cptexo']++;
 			
+			
 		}
 		
 	?>
 		
-	</div>
 
 
 </body>

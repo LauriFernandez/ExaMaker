@@ -21,23 +21,23 @@ header h1 {
 		padding-top: 20px;
 	font-style: normal;
 	margin-top: 0;
-	color: #8A2BE2;
+	color: darkgrey;
 }
 
 body {
-		background:  -webkit-linear-gradient(-55deg, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
-
+		background-color: #ededed;
 		margin: 0px;
 		font-family: "AlegreyaSans-Light", sans-serif;
 }
+
 
 #connex {
 	border: 2px solid black;
 	background-color: cyan;
 	padding-bottom: 2em;
 	padding-top: 2em;
-	margin-left: 25em;
-	margin-right: 25em;
+	margin-left: 20em;
+	margin-right: 20em;
 	margin-top: 8em;
 	text-align: center;
 	font-size: 130%;

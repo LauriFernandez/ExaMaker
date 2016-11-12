@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="cree.css" />
 	<title>Création du sujet</title>
 </head>
 
@@ -12,18 +13,17 @@
 	</header>
 
 <br/><br/>	
+
 	
-	<div>
 	
-			
-		<a href="detailExo.php"><button>Voir le contenu du sujet</button></a><br/>			
-		<br/>
-		<a href="intro.php"><button> creer un exercice </button></a> <tr/><a href="Question.php"><button> ajouter une question </button></a> <tr/>
-		<br/><br/>
-		<a href="verification.php"><button>verifier le sujet</button></a>
-		<br/><br/>
-		<a href="index.html"><button>revenir à la page d'accueil</button></a>
-	
+	<div id="Button">		
+		<a href="intro.php?re=true">Commencer un nouveau sujet (Attention cela effacera les données du precedent sujet)</a><br>			
+		<br/><br/><br/><br/>
+		<a href="intro.php"> creer/selectionner un exercice</a> <tr/><a href="Question.php">ajouter une question</a> <tr/>
+		<br/><br/><br/><br/><br/>
+		<a  href="verification.php">verifier le sujet</a>
+		<br/><br/><br/><br/><br/>
+		<a href="index.html">revenir à la page d'accueil</a>
 	</div>
 
 

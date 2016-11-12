@@ -3,6 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="cree.css" />
 	<title>Choix des questions</title>
 </head>
 
@@ -20,16 +21,19 @@
 			
 			
 			
-			if(isset($_POST['num']) and isset($_POST['question']) and isset($_POST['reponse']) and isset($_POST['bareme']) and isset($_POST['énoncé']))
+			if(isset($_POST['num']) and isset($_POST['question']) and isset($_POST['bareme']) and isset($_POST['énoncé']))
 			{	
 				$i=(int)$_POST['num'];
 				if($i==@$_SESSION['ex'.$_SESSION['ind']]['num'][$i])
 				{
-					echo '<p>'."Vous avez deja traité cette question, vous pouvez le modifier dans l'onglet \"modifier\" de la page principale".'</p><br/>';
-					echo '<p><a href="index.html"><button>revenir à la page principale</button></a></p><br>';
-					echo '<p><a href="Question.php"><button>revoir la question</button></a></p><br>';
-					echo '<p><a href="Creation_sujet.php"><button>Revenir à la création du sujet</button></a></p><br>';
-			
+					echo '<div id="deEx">';
+						echo '<div id="Button">';
+						echo '<p class="notif">'."Vous avez deja traité cette question, vous pouvez la modifier dans l'onglet \"modifier\" de la page principale".'</p><br/>';
+						echo '<p><a href="index.html">Revenir à la page principale</a></p><br>';
+						echo '<p><a href="Question.php">Revoir la question</a></p><br>';
+						echo '<p><a href="Creation_sujet.php">Revenir à la création du sujet</a></p><br>';
+						echo '</div>';
+					echo '</div>';
 					exit();
 	
 				}
@@ -52,20 +56,20 @@
 				$_SESSION['ex'.$_SESSION['ind']]['num'][$i]=$_POST['num'];	
 				$_SESSION['ex'.$_SESSION['ind']]['question'][$i]=$_POST['question'];
 				$_SESSION['ex'.$_SESSION['ind']]['énoncé'][$i]=$_POST['énoncé'];
-				$_SESSION['ex'.$_SESSION['ind']]['reponse'][$i]=$_POST['reponse'];
 				$_SESSION['ex'.$_SESSION['ind']]['bareme'][$i]=$_POST['bareme'];									
 					
 						echo '</p>'."Question numero: ".$_SESSION['ex'.$_SESSION['ind']]['num'][$i].'</p><br/>';
 						echo '</p>'."énoncé: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'</p><br/>';
 						echo '</p>'."Question: ".$_SESSION['ex'.$_SESSION['ind']]['question'][$i].'</p><br/>';
-						echo '</p>'."Reponse: ".$_SESSION['ex'.$_SESSION['ind']]['reponse'][$i].'</p><br/>';
 						echo '</p>'."bareme: ".$_SESSION['ex'.$_SESSION['ind']]['bareme'][$i].'</p><br/><br/>';
 					
 												
 			}
 		?>
 		
-		<a href="Creation_sujet.php"><button>valider</button></a> <tr/> <a href="Question.php"><button>modifier</button></a>
+		<div id="Button">
+		<a href="Creation_sujet.php">valider</a> <tr/> <a href="Question.php"<>modifier</a>
+		</div>
 		
 		<br/><br/>
 	
