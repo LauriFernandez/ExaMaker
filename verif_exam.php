@@ -1,7 +1,7 @@
 <?php
 $extensions_val = array('.exam');
 $extensions_up = strrchr($_FILES['fichier']['name'], '.'); // recuperer chaine apres le point
-$tab_test = array('[NUM_EXO]','[TITRE_EXO]','[NUM_QUESTION]','[QUESTION]','[ENONCE]','[REPONSE]','[BAREME]');
+$tab_test = array('[NUM_EXO]','[TITRE_EXO]','[NUM_QUESTION]','[QUESTION]','[BAREME]');
 $tab_verif = array();
 $tab_verif_plus = array(0); // indice 0 test ~
 
@@ -28,17 +28,14 @@ function test_exam()
 	$fich = @fopen($_FILES['fichier']['tmp_name'], 'r');
 	if($fich)
 	{
-		while(false !== ($char = fgetc($fich))) // tant qu on a pas atteint la fin du fichier
+		while(false !== ($char = fgetc($fich))) // tant qu'on a pas atteint la fin du fichier
 		{
 			$ct[] = $char; // recupere tout le fichier et le met dans un tableau
 		}
-		//print_r($ct);
-		//echo count($ct);
-		
 			// test de tout un exo :
 			do
 			{
-				for($i; $ct[$i]!=']' and $ct[$i] != '~'; $i++); // 2eme condition = s'arrete au cas ou il n'y aurais pas de marqueur de fin
+				for($i; $ct[$i]!=']' and $ct[$i] != '~' and $i<count($ct)-1; $i++); // 3eme condition = s'arrete au cas ou il n'y aurais pas de marqueur de fin
 				$i++;
 				$chaine = implode(array_slice($ct,$j,$i-$j));
 				//echo $chaine;
@@ -48,10 +45,10 @@ function test_exam()
 					else $tab_verif[$k] = 1;
 				}
 				
-				if($balise < 6) $balise++;
+				if($balise < 4) $balise++;
 				else $balise = 0;
 							
-				for($i; $ct[$i]!='[' and $ct[$i] != '~'; $i++) // Avancer jusqu'a la prochaine balise
+				for($i; $ct[$i]!='[' and $ct[$i] != '~' and $i<count($ct)-1; $i++) // Avancer jusqu'a la prochaine balise
 				{
 					//echo $ct[$i];
 					if(isset($ct[$i]))
@@ -61,12 +58,9 @@ function test_exam()
 							if($ct[$i+1] == '~') $count_fin++;
 							
 							if($count_fin == 1) $tab_verif_plus[0] = 0;
-							else $tab_verif_plus[0] = 1;
-						
-					}
-					
+							else $tab_verif_plus[0] = 1;	
+					}	
 				}
-				
 				$j = $i;
 				$k++;	 
 			}
@@ -98,7 +92,7 @@ if($taille>$taille_maxi) // Si taille fichier trop gros
 }
 if(!test_exam()) // Si la syntaxe du fichier n'est pas celui d'un .exam
 {
-	$erreur = 'Le contenut du fichier ne coresspond pas...';
+	$erreur = 'Le contenut du fichier ne correspond pas';
 }
 if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
 {

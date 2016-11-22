@@ -30,8 +30,6 @@
 					{
 						fputs($monfich,"[NUM_QUESTION]".$_SESSION['ex'.$a]['num'][$b]);	
 						fputs($monfich,"[QUESTION]".$_SESSION['ex'.$a]['question'][$b]);
-						fputs($monfich,"[ENONCE]".$_SESSION['ex'.$a]['énoncé'][$b]);
-						fputs($monfich,"[REPONSE]".$_SESSION['ex'.$a]['reponse'][$b]);
 						fputs($monfich,"[BAREME]".$_SESSION['ex'.$a]['bareme'][$b]);
 						if($b < $_SESSION['nbQuestion'][$a]) fputs($monfich,"#"); // marqueur fin de bloc question
 					}	
