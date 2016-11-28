@@ -4,7 +4,6 @@ $extensions_up = strrchr($_FILES['fichier']['name'], '.'); // recuperer chaine a
 $tab_test = array('[NUM_EXO]','[TITRE_EXO]','[NUM_QUESTION]','[QUESTION]','[BAREME]');
 $tab_verif = array();
 $tab_verif_plus = array(0); // indice 0 test ~
-
 function verif_tab($t)
 {
 	$res = 0;
@@ -14,14 +13,16 @@ function verif_tab($t)
 	if($res == 0) return true;
 	else return false;
 }
-
 function exam_session()
 {
 	global $tab_test;
 	global $tab_verif;
 	global $dossier;
 	global $fichier;
-
+	$tab_occ = array('[NUM_EXO]'=>0,'[TITRE_EXO]'=>0,'[NUM_QUESTION]'=>0,'[QUESTION]'=>0,'[BAREME]'=>0);
+	$balise = 0;
+	$i = 0;
+	$j = 0;
 	$fich = @fopen($dossier.$fichier, 'r');
 	if($fich)
 	{
@@ -36,26 +37,27 @@ function exam_session()
 				$i++;
 				$chaine = implode(array_slice($ct,$j,$i-$j));
 				//echo $chaine;
-				
-				if($balise < 4) $balise++;
-				else $balise = 0;
-							
+			
 				for($i; $ct[$i]!='[' and $ct[$i] != '~' and $i<count($ct)-1; $i++) // Avancer jusqu'a la prochaine balise
 				{
-					if(isset($_SESSION[$chaine])
-						$_SESSION[$chaine].$ct[$i]; // probleme
+					if(isset($_SESSION[$chaine.$tab_occ[$chaine]]))
+						$_SESSION[$chaine.$tab_occ[$chaine]] = $_SESSION[$chaine.$tab_occ[$chaine]].$ct[$i];
 					else
-						$_SESSION[$chaine] = $ct[$i];
+						$_SESSION[$chaine.$tab_occ[$chaine]] = $ct[$i];
+					
 					//echo $ct[$i];
 					if(isset($ct[$i]))
 					{
 						if($ct[$i] == '#') $balise = 2;
 					}	
 				}
+				$tab_occ[$chaine]++;
+				if($balise < 4) $balise++;
+				else $balise = 0;
 				$j = $i; 
-				echo '['.$chaine.'] = '.$_SESSION[$chaine].' ';
 			}
 			while($ct[$i] != '~' and $i<count($ct)-1); // 2eme condition = s'arrete au cas ou il n'y aurais pas de marqueur de fin
+			//print_r($_SESSION);
 			if(fclose($fich));
 			else echo "Erreur lors de la fermeture du fichier !"; //apres balise bareme mettre a 0
 	}
@@ -64,8 +66,6 @@ function exam_session()
 		echo "<p>Erreur lors de la lecture du fichier : chemin incorrect ou droits inexistants</p>";
 	}
 }
-
-
 function test_exam()
 {
 	global $tab_test;
@@ -127,12 +127,10 @@ function test_exam()
 		echo "<p>Erreur lors de la lecture du fichier : chemin incorrect ou droits inexistants</p>";
 	}
 }
-
 $dossier = 'upload/';
 $fichier = basename($_FILES['fichier']['name']);
 $taille_maxi = 100000;
 $taille = filesize($_FILES['fichier']['tmp_name']);
-
 if(!in_array($extensions_up, $extensions_val)) //Si l'extension n'est pas dans le tableau
 {
      $erreur = 'Vous devez uploader un fichier de type exam';
@@ -155,7 +153,7 @@ if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
      if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier.$fichier))
      {
      	echo 'Upload effectué avec succès !';
-		exam_session();
+		exam_session(); // met le .exam dans un $session
      }
      else
      {
