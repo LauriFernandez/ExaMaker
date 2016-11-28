@@ -15,6 +15,57 @@ function verif_tab($t)
 	else return false;
 }
 
+function exam_session()
+{
+	global $tab_test;
+	global $tab_verif;
+	global $dossier;
+	global $fichier;
+
+	$fich = @fopen($dossier.$fichier, 'r');
+	if($fich)
+	{
+		while(false !== ($char = fgetc($fich))) // tant qu'on a pas atteint la fin du fichier
+		{
+			$ct[] = $char; // recupere tout le fichier et le met dans un tableau
+		}
+			// test de tout un exo :
+			do
+			{
+				for($i; $ct[$i]!=']' and $ct[$i] != '~' and $i<count($ct)-1; $i++); // 3eme condition = s'arrete au cas ou il n'y aurais pas de marqueur de fin
+				$i++;
+				$chaine = implode(array_slice($ct,$j,$i-$j));
+				//echo $chaine;
+				
+				if($balise < 4) $balise++;
+				else $balise = 0;
+							
+				for($i; $ct[$i]!='[' and $ct[$i] != '~' and $i<count($ct)-1; $i++) // Avancer jusqu'a la prochaine balise
+				{
+					if(isset($_SESSION[$chaine])
+						$_SESSION[$chaine].$ct[$i]; // probleme
+					else
+						$_SESSION[$chaine] = $ct[$i];
+					//echo $ct[$i];
+					if(isset($ct[$i]))
+					{
+						if($ct[$i] == '#') $balise = 2;
+					}	
+				}
+				$j = $i; 
+				echo '['.$chaine.'] = '.$_SESSION[$chaine].' ';
+			}
+			while($ct[$i] != '~' and $i<count($ct)-1); // 2eme condition = s'arrete au cas ou il n'y aurais pas de marqueur de fin
+			if(fclose($fich));
+			else echo "Erreur lors de la fermeture du fichier !"; //apres balise bareme mettre a 0
+	}
+	else
+	{
+		echo "<p>Erreur lors de la lecture du fichier : chemin incorrect ou droits inexistants</p>";
+	}
+}
+
+
 function test_exam()
 {
 	global $tab_test;
@@ -104,6 +155,7 @@ if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
      if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier.$fichier))
      {
      	echo 'Upload effectué avec succès !';
+		exam_session();
      }
      else
      {
